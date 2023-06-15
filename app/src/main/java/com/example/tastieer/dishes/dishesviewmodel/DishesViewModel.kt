@@ -1,5 +1,7 @@
 package com.example.tastieer.dishes.dishesviewmodel
 
+import android.util.Log
+import android.view.View
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -13,14 +15,25 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DishesViewModel @Inject constructor(val usecase: IgetDishesUsecase):ViewModel() {
+    sealed class ViewStates{
+        object Loading:ViewStates()
+        class Success(val data: List<Meal>) : ViewStates()
+        class Failure(val data2:String):ViewStates()
+    }
 
-    private val _listofDishes:MutableState<List<Meal>> = mutableStateOf(emptyList())
-    val listofDishes: State<List<Meal>> = _listofDishes
+    private val _listofDishes:MutableState<ViewStates> = mutableStateOf(ViewStates.Loading)
+    val listofDishes: State<ViewStates> = _listofDishes
 
     fun getallDishes(DishName:String){
         viewModelScope.launch {
-            val dishlist = usecase(DishName)
-            _listofDishes.value = dishlist.meals
+            try{
+                val dishlist = usecase(DishName)
+                _listofDishes.value = ViewStates.Success(dishlist.meals)
+            }catch (e:Exception){
+                Log.e("Error dishesViewModel",e.message.toString())
+                _listofDishes.value= ViewStates.Failure(e.message?:"Unknown Error Occured :(")
+            }
+
         }
     }
 

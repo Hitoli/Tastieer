@@ -5,6 +5,11 @@ import com.example.tastieer.category.repository.IGetCategoryRepository
 import com.example.tastieer.category.services.IGetCategoryServices
 import com.example.tastieer.category.usercase.CategoryUsecase
 import com.example.tastieer.category.usercase.IGetCategoryUsecase
+import com.example.tastieer.dishdetails.repository.DishDetailsRepository
+import com.example.tastieer.dishdetails.repository.IGetDishDetailRepository
+import com.example.tastieer.dishdetails.services.IGetDishDetailServices
+import com.example.tastieer.dishdetails.usecase.DishDetailsUsecase
+import com.example.tastieer.dishdetails.usecase.IgetDishDetailsUsecase
 import com.example.tastieer.dishes.repository.DishesRepository
 import com.example.tastieer.dishes.repository.IGetDishRepository
 import com.example.tastieer.dishes.services.IGetDishesServices
@@ -42,6 +47,11 @@ class AppModule {
     fun provideDishesService(retrofit: Retrofit):IGetDishesServices{
         return retrofit.create(IGetDishesServices::class.java)
     }
+    @Provides
+    @Singleton
+    fun provideDishesDetailsService(retrofit: Retrofit):IGetDishDetailServices{
+        return retrofit.create(IGetDishDetailServices::class.java)
+    }
 
     @Module
     @InstallIn(SingletonComponent::class)
@@ -63,6 +73,14 @@ class AppModule {
         @Binds
         @Singleton
         fun provideDishesCategory(uc:DishesUsecase):IgetDishesUsecase
+
+        @Binds
+        @Singleton
+        fun provideDishDetailsRepository(repo:DishDetailsRepository):IGetDishDetailRepository
+
+        @Binds
+        @Singleton
+        fun provideDishesDetailsUsecase(uc:DishDetailsUsecase):IgetDishDetailsUsecase
     }
 
 }

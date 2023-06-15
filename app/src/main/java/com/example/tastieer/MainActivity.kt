@@ -17,6 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.tastieer.category.CategoryScreen
+import com.example.tastieer.dishdetails.DishDetailsScreen
 import com.example.tastieer.dishes.DishesScreen
 import com.example.tastieer.ui.theme.TastieerTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,7 +51,17 @@ fun Categoriesapp() {
             val categoryrem = remember {
                 it.arguments?.getString("category")
             }
-            DishesScreen(categoryrem)
+            DishesScreen(categoryrem, onDishdetailclick = {mealid->
+                navController.navigate("details/${mealid}")
+            })
+        }
+        composable("details/{mealid}", arguments = listOf(navArgument("mealid"){
+            type = NavType.StringType
+        })){
+            val mealidrem = remember {
+                it.arguments?.getString("mealid")
+            }
+            DishDetailsScreen(id = mealidrem)
         }
     }
     //CategoryScreen()
