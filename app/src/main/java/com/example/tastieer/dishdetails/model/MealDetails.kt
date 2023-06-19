@@ -1,6 +1,9 @@
 package com.example.tastieer.dishdetails.model
 
 
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -9,6 +12,7 @@ data class MealDetails(
     @Json(name = "dateModified")
     val dateModified: Any?,
     @Json(name = "idMeal")
+
     val idMeal: String,
     @Json(name = "strArea")
     val strArea: String,

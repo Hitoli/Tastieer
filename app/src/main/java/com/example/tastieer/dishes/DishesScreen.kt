@@ -30,7 +30,7 @@ fun DishesScreen(categories:String?,viewModel: DishesViewModel= hiltViewModel(),
 
     DisposableEffect(key1 = Unit) {
         if (!categories.isNullOrEmpty()) {
-            viewModel.getallDishes(DishName = categories!!)
+            viewModel.getallDishes(DishName = categories)
         }
         onDispose {  }
     }

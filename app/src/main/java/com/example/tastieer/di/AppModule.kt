@@ -20,6 +20,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -40,6 +42,11 @@ class AppModule {
     @Singleton
     fun provideCategoryService(retrofit: Retrofit):IGetCategoryServices{
         return retrofit.create(IGetCategoryServices::class.java)
+    }
+    @Provides
+    @Singleton
+    fun provideDispacthers():CoroutineDispatcher{
+        return Dispatchers.IO
     }
 
     @Provides
