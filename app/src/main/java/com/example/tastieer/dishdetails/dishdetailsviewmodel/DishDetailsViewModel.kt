@@ -24,7 +24,7 @@ class DishDetailsViewModel @Inject constructor(val usecase:IgetDishDetailsUsecas
             try{
                 val dishdetails = usecase(DishDetails)
                 _detailsofDishes.value = dishdetails.meals[0]
-                Log.e("MEAl DETAILS",dishdetails.meals[0].strMeal)
+                Log.e("MEAl DETAILS",dishdetails.meals[0].toString())
             }catch (e:Exception){
                 Log.e("Error dishesViewModel",e.message.toString())
                 //_listofDishes.value= DishesViewModel.ViewStates.Failure(e.message?:"Unknown Error Occured :(")
