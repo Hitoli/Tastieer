@@ -18,9 +18,9 @@ class CategoryRepository @Inject constructor(val services: IGetCategoryServices,
     override suspend fun getAllCategories(): CategoryResponse {
         return withContext(dispatcher) {
             val response = try {
-                val categorydata = services.getAllCategories()
-                dao.saveCategoryResponse(categorydata.categories)
-                categorydata
+                val categorydat = services.getAllCategories()
+                dao.saveCategoryResponse(categorydat.categories)
+                categorydat
             } catch (e: Exception) {
                 Log.e("ERROR with category Repository", "{${e.message}}")
                 val CacheCateggoryResponse = dao.getAllCategoriesSave()
